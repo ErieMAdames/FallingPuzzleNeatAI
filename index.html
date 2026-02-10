@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Falling Puzzle</title>
+    <link rel="stylesheet" href="css/game.css">
+    <script src="https://cdn.jsdelivr.net/npm/neataptic/dist/neataptic.js"></script>
+</head>
+<body>
+    <div id="mode-toggle">
+        <button id="toggle-mode" class="toggle-btn">Switch to Training Mode</button>
+    </div>
+    
+    <!-- Play Mode -->
+    <div id="game-container">
+        <div id="ui-overlay">
+            <div id="score-panel">
+                <div class="score-item">
+                    <span class="label">Score</span>
+                    <span id="current-score" class="value">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="label">High Score</span>
+                    <span id="high-score" class="value">0</span>
+                </div>
+            </div>
+            <div id="combo-display" class="hidden">
+                <span id="combo-text"></span>
+            </div>
+            <button id="pause-btn" class="game-btn">⏸</button>
+        </div>
+        
+        <canvas id="game-canvas"></canvas>
+        
+        <div id="pause-screen" class="screen hidden">
+            <h2>Paused</h2>
+            <button id="resume-btn" class="menu-btn">Resume</button>
+            <button id="restart-btn" class="menu-btn">Restart</button>
+        </div>
+        
+        <div id="gameover-screen" class="screen hidden">
+            <h2>Game Over!</h2>
+            <div class="final-score">
+                <span class="label">Final Score</span>
+                <span id="final-score-value" class="value">0</span>
+            </div>
+            <div id="new-highscore" class="hidden">
+                <span class="highlight">🎉 New High Score! 🎉</span>
+            </div>
+            <button id="play-again-btn" class="menu-btn">Play Again</button>
+        </div>
+    </div>
+    
+    <!-- Training Mode -->
+    <div id="training-container" class="hidden">
+        <div id="training-left">
+            <canvas id="training-canvas"></canvas>
+            <div id="training-game-stats">
+                <div class="stat-item">
+                    <span class="label">AI Score</span>
+                    <span id="ai-score" class="value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="label">Best Ever</span>
+                    <span id="best-ever-score" class="value">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="training-right">
+            <div id="neural-net-container"></div>
+            
+            <div id="training-stats">
+                <div class="stat-row">
+                    <span>Generation:</span>
+                    <span id="gen-number" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Best Fitness:</span>
+                    <span id="best-fitness" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Avg Fitness:</span>
+                    <span id="avg-fitness" class="stat-value">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Population:</span>
+                    <span id="pop-size" class="stat-value">50</span>
+                </div>
+            </div>
+            
+            <div id="training-controls">
+                <div class="control-row">
+                    <button id="start-training" class="control-btn primary">Start Training</button>
+                    <button id="pause-training" class="control-btn" disabled>Pause</button>
+                    <button id="stop-training" class="control-btn" disabled>Stop</button>
+                </div>
+                
+                <div class="control-row">
+                    <label>Speed: 
+                        <select id="training-speed">
+                            <option value="1">1x</option>
+                            <option value="5">5x</option>
+                            <option value="10" selected>10x</option>
+                            <option value="50">50x</option>
+                            <option value="0">Max Speed</option>
+                        </select>
+                    </label>
+                    
+                    <button id="skip-generation" class="control-btn">Skip 10 Gens</button>
+                </div>
+                
+                <div class="control-row">
+                    <span style="color: #999; font-size: 12px;">
+                        Toggle viz: <code style="color: #667eea;">trainingManager.showVisualization = false</code>
+                    </span>
+                </div>
+                
+                <div class="control-row">
+                    <button id="save-best" class="control-btn">Save Best</button>
+                    <button id="load-network" class="control-btn">Load Network</button>
+                    <button id="export-data" class="control-btn">Export Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/block.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ai-interface.js"></script>
+    <script src="js/neat-trainer.js"></script>
+    <script src="js/network-visualizer.js"></script>
+    <script src="js/training-manager.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
